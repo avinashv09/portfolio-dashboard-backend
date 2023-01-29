@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface ScripPricesRepository extends MongoRepository<ScripPricesDocument, ScripPricesKey> {
 
-    @Query("{ '_id.scrip.scripName' : ?0")
+    @Query("{ '_id.scrip.scripName' : ?0}")
     List<ScripPricesDocument> findByScripName(String scripName, Pageable pageable);
 }

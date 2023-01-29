@@ -9,19 +9,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional
 public class PriceGetterService {
     private final PriceScrapper priceScrapper;
     private final ScripPricesRepository scripPricesRepository;
@@ -44,12 +44,16 @@ public class PriceGetterService {
     }
 
     public void updatePrices() throws Exception {
-        ScripResponse[] priceWatcherResponseArray = WebClient.builder().build().get()
-                .uri("http://localhost:8080/api/pricewatcher/get-all-watched-scrips")
+        ScripResponse[] priceWatcherResponseArray = WebClient.builder()
+                .baseUrl("http://localhost:8080/api/pricewatcher/get-all-watched-scrips")
+                .build()
+                .get()
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(ScripResponse[].class)
+                .bodyToMono(ScripResponse[].class).log()
                 .block();
         for(ScripResponse scripResponse : priceWatcherResponseArray) {
+            log.info("{} is getting queried", scripResponse);
             updatePrice(scripResponse);
         }
         log.info("Updated prices for {} scrips", priceWatcherResponseArray.length);

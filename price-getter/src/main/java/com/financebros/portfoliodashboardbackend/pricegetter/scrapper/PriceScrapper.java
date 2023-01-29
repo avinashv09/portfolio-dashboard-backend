@@ -22,12 +22,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class PriceScrapper {
     public List<ScripPricesDocument> getPrices(ScripResponse scripResponse, Date latestDate) throws ParseException {
-        SimpleDateFormat dateFormater = new SimpleDateFormat("dd-mm-yyyy");
+        SimpleDateFormat dateFormater = new SimpleDateFormat("dd-MM-yyyy");
         String dateRange = latestDate == null ? "24month" : "";
-        String dateFrom = latestDate == null ? dateFormater.format(latestDate) : "";
-        String dateTo = latestDate == null ? dateFormater.format(new Date()) : "";
+        String dateFrom = latestDate == null ? "" : dateFormater.format(latestDate);
+        String dateTo = latestDate == null ? "" : dateFormater.format(new Date());
         String symbol = scripResponse.getScripName();
-        String url = String.format("https://www1.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?dataType=PRICEVOLUMEDELIVERABLE&dateRange=%s&fromDate=%s&toDate=%ssegmentLink=3&symbolCount=1&series=ALL&symbol=%s",
+        String url = String.format("https://www1.nseindia.com/products/dynaContent/common/productsSymbolMapping.jsp?dataType=PRICEVOLUMEDELIVERABLE&dateRange=%s&fromDate=%s&toDate=%s&segmentLink=3&symbolCount=1&series=ALL&symbol=%s",
                 dateRange,
                 dateFrom,
                 dateTo,

@@ -8,6 +8,7 @@ import com.financebros.portfoliodashboardbackend.pricewatcher.model.ScripDocumen
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class PriceWatcherService {
         log.info("Price Watcher added for {}", scripIdentifierRequest);
     }
 
+    @Transactional(readOnly = true)
     public List<ScripResponse> getAllScrips() {
         List<ScripDocument> scrips = priceWatcherRepository.findAll();
         log.info("{} scrips returned for watcher", scrips.size());
