@@ -6,10 +6,18 @@ import com.financebros.portfoliodashboardbackend.pricegetter.scrapper.PriceScrap
 import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
@@ -18,19 +26,7 @@ public class PriceGetterService {
     private final PriceScrapper priceScrapper;
     private final ScripPricesRepository scripPricesRepository;
 
-    public void updatePrices(){
-        priceScrapper.getPrices(null, null);
-//        List<ScripResponse> scrips = getAllWatchedScrips();
-//        for(ScripResponse scripResponse : scrips) {
-//            updatePrice(scripResponse);
-//        }
-    }
-
-    private List<ScripResponse> getAllWatchedScrips() {
-        return null;
-    }
-
-    private void updatePrice(ScripResponse scripResponse) {
+    public void updatePrice(ScripResponse scripResponse) throws ParseException {
         Date latestDate = getLatestDate(scripResponse);
         List<ScripPricesDocument> scripPricesDocumentList = priceScrapper.getPrices(scripResponse, latestDate);
         scripPricesRepository.saveAll(scripPricesDocumentList);
@@ -38,6 +34,24 @@ public class PriceGetterService {
     }
 
     private Date getLatestDate(ScripResponse scripResponse) {
+        Pageable pageable = PageRequest.of(0, 1, Sort.by("_id.date").descending());
+        List<ScripPricesDocument> result = scripPricesRepository.findByScripName(scripResponse.getScripName(), pageable);
+        if(result != null && result.size() == 1) {
+            log.info("Scrip Price Data for {} present till {}", result.get(0).getScrip().getScrip(), result.get(0).getScrip().getDate());
+            return result.get(0).getScrip().getDate();
+        }
         return null;
+    }
+
+    public void updatePrices() throws Exception {
+        ScripResponse[] priceWatcherResponseArray = WebClient.builder().build().get()
+                .uri("http://localhost:8080/api/pricewatcher/get-all-watched-scrips")
+                .retrieve()
+                .bodyToMono(ScripResponse[].class)
+                .block();
+        for(ScripResponse scripResponse : priceWatcherResponseArray) {
+            updatePrice(scripResponse);
+        }
+        log.info("Updated prices for {} scrips", priceWatcherResponseArray.length);
     }
 }

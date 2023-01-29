@@ -1,5 +1,6 @@
 package com.financebros.portfoliodashboardbackend.pricewatcher.service;
 
+import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
 import com.financebros.portfoliodashboardbackend.pricewatcher.model.ScripKey;
 import com.financebros.portfoliodashboardbackend.pricewatcher.repository.PriceWatcherRepository;
 import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripIdentifierRequest;
@@ -16,14 +17,39 @@ import java.util.List;
 public class PriceWatcherService {
     private final PriceWatcherRepository priceWatcherRepository;
     public void createPriceWatcher(ScripIdentifierRequest scripIdentifierRequest) {
-        ScripKey scrip = ScripKey.builder()
-                .scripName(scripIdentifierRequest.getScripName()).build();
-        ScripDocument scripDocument = ScripDocument.builder().scrip(scrip).build();
+        ScripDocument scripDocument = mapToScripDocument(scripIdentifierRequest);
         priceWatcherRepository.save(scripDocument);
         log.info("Price Watcher added for {}", scripIdentifierRequest);
     }
 
-    public List<ScripDocument> getAllScrips() {
-        return priceWatcherRepository.findAll();
+    public List<ScripResponse> getAllScrips() {
+        List<ScripDocument> scrips = priceWatcherRepository.findAll();
+        log.info("{} scrips returned for watcher", scrips.size());
+        return scrips.stream().map(this::mapToScripResponse).toList();
+    }
+
+    private ScripResponse mapToScripResponse(ScripDocument scripDocument) {
+        return ScripResponse.builder()
+                .scripName(scripDocument.getScrip().getScripName())
+                .exchange(scripDocument.getScrip().getExchange())
+                .type(scripDocument.getScrip().getType())
+                .build();
+    }
+
+    private ScripDocument mapToScripDocument(ScripIdentifierRequest scripIdentifierRequest) {
+        ScripKey scrip = ScripKey.builder()
+                .scripName(scripIdentifierRequest.getScripName())
+                .exchange(scripIdentifierRequest.getExchange())
+                .type(scripIdentifierRequest.getType()).build();
+        return ScripDocument.builder().scrip(scrip).build();
+    }
+
+    public void deleteScrip(ScripIdentifierRequest scripIdentifierRequest) {
+        priceWatcherRepository.delete(mapToScripDocument(scripIdentifierRequest));
+        log.info("Price Watcher removed for {}", scripIdentifierRequest);
+    }
+
+    public void deleteAll() {
+        priceWatcherRepository.deleteAll();
     }
 }
