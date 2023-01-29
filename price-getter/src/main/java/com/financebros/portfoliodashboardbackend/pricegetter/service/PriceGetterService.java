@@ -19,10 +19,11 @@ public class PriceGetterService {
     private final ScripPricesRepository scripPricesRepository;
 
     public void updatePrices(){
-        List<ScripResponse> scrips = getAllWatchedScrips();
-        for(ScripResponse scripResponse : scrips) {
-            updatePrice(scripResponse);
-        }
+        priceScrapper.getPrices(null, null);
+//        List<ScripResponse> scrips = getAllWatchedScrips();
+//        for(ScripResponse scripResponse : scrips) {
+//            updatePrice(scripResponse);
+//        }
     }
 
     private List<ScripResponse> getAllWatchedScrips() {
