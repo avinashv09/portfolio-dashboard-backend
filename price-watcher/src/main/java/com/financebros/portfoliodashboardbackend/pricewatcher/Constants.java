@@ -1,4 +1,4 @@
-package com.financebros.pricewatcher;
+package com.financebros.portfoliodashboardbackend.pricewatcher;
 
 public class Constants {
     public static final String API_END_POINT = "/api/pricewatcher";

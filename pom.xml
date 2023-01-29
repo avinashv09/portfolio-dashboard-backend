@@ -15,10 +15,11 @@
 	<name>portfolio-dashboard-backend</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<modules>
 		<module>price-watcher</module>
+		<module>price-getter</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -49,8 +50,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>16</source>
-					<target>16</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 		</plugins>
