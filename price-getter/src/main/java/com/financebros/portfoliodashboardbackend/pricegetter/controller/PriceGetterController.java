@@ -16,6 +16,7 @@ public class PriceGetterController {
     public static final String PRICEGETTER_API_END_POINT = "/pricegetter";
     public static final String TRIGGER_UPDATE_END_POINT = "/triggerUpdate";
     public static final String GET_PRICES_END_POINT = "/get-prices";
+    private static final String DELETE_API_END_POINT = "/delete-all";
     private final PriceGetterService priceGetterService;
 
     @GetMapping(TRIGGER_UPDATE_END_POINT)
@@ -28,5 +29,11 @@ public class PriceGetterController {
     @ResponseStatus(HttpStatus.OK)
     public List<ScripPricesResponse> getPrices(@RequestBody ScripIdentifierRequest scripIdentifierRequest) throws Exception {
         return priceGetterService.getPrices(scripIdentifierRequest);
+    }
+
+    @DeleteMapping(DELETE_API_END_POINT)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteAll() {
+        priceGetterService.deleteAll();
     }
 }

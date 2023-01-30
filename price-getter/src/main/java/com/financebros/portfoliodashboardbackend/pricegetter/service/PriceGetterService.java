@@ -65,4 +65,8 @@ public class PriceGetterService {
         return scripPricesRepository.findByScrip(scripIdentifierRequest.getScripName(), scripIdentifierRequest.getExchange(),
                 scripIdentifierRequest.getType()).stream().map(ScripPricesResponse::fromScripPricesDocument).toList();
     }
+
+    public void deleteAll() {
+        scripPricesRepository.deleteAll();
+    }
 }
