@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "8d9fbb0a-e70d-4c67-b035-391e4aeefdb0",
+		"name": "price-watcher",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get-all-watched-scrips",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/pricewatcher/get-all-watched-scrips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pricewatcher",
+						"get-all-watched-scrips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"scripName\": \"TATAMOTORS\",\n    \"exchange\": \"NSE\",\n    \"type\": \"EQ\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pricewatcher/add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pricewatcher",
+						"add"
+					],
+					"query": [
+						{
+							"key": "scripName",
+							"value": "TATAMOTORS",
+							"disabled": true
+						},
+						{
+							"key": "exchange",
+							"value": "NSE",
+							"disabled": true
+						},
+						{
+							"key": "type",
+							"value": "EQ",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete-scrip",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"scripName\": \"TATAMOTORS\",\n    \"exchange\": \"NSE\",\n    \"type\": \"EQ\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/pricewatcher/delete-scrip",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"pricewatcher",
+						"delete-scrip"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

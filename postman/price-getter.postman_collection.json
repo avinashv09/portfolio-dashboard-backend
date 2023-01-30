@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "232d2ea9-d969-4808-a28e-14b30840eece",
+		"name": "price-getter",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "trigger-price-getter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/pricegetter/triggerUpdate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pricegetter",
+						"triggerUpdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/pricegetter/triggerUpdate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pricegetter",
+						"triggerUpdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-prices",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"scripName\": \"TATAMOTORS\",\n    \"exchange\": \"NSE\",\n    \"type\": \"EQ\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/pricegetter/get-prices",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pricegetter",
+						"get-prices"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
