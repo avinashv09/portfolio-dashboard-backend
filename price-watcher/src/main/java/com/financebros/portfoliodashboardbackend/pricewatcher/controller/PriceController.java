@@ -1,9 +1,9 @@
 package com.financebros.portfoliodashboardbackend.pricewatcher.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripIdentifierRequest;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripResponse;
 import com.financebros.portfoliodashboardbackend.pricewatcher.Constants;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripIdentifierRequest;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
 import com.financebros.portfoliodashboardbackend.pricewatcher.service.PriceWatcherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

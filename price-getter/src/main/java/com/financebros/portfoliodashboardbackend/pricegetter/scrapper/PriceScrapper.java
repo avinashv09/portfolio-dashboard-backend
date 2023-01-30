@@ -1,20 +1,18 @@
 package com.financebros.portfoliodashboardbackend.pricegetter.scrapper;
 
-import com.financebros.portfoliodashboardbackend.pricegetter.model.ScripPricesDocument;
-import com.financebros.portfoliodashboardbackend.pricegetter.model.ScripPricesKey;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
-import com.financebros.portfoliodashboardbackend.pricewatcher.model.ScripKey;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripResponse;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripKey;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripPricesDocument;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripPricesKey;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
 import java.util.*;
 
 @Component

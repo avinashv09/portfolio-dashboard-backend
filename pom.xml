@@ -20,6 +20,7 @@
 	<modules>
 		<module>price-watcher</module>
 		<module>price-getter</module>
+		<module>dto</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

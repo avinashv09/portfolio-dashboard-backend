@@ -1,10 +1,10 @@
 package com.financebros.portfoliodashboardbackend.pricewatcher.service;
 
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
-import com.financebros.portfoliodashboardbackend.pricewatcher.model.ScripKey;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripIdentifierRequest;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripResponse;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripDocument;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripKey;
 import com.financebros.portfoliodashboardbackend.pricewatcher.repository.PriceWatcherRepository;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripIdentifierRequest;
-import com.financebros.portfoliodashboardbackend.pricewatcher.model.ScripDocument;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

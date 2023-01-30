@@ -1,4 +1,4 @@
-package com.financebros.portfoliodashboardbackend.pricewatcher.model;
+package com.financebros.portfoliodashboardbackend.model.pricewatcher;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

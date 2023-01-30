@@ -1,9 +1,11 @@
 package com.financebros.portfoliodashboardbackend.pricegetter.service;
 
-import com.financebros.portfoliodashboardbackend.pricegetter.model.ScripPricesDocument;
+import com.financebros.portfoliodashboardbackend.dto.pricegetter.ScripPricesResponse;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripIdentifierRequest;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripResponse;
+import com.financebros.portfoliodashboardbackend.model.pricewatcher.ScripPricesDocument;
 import com.financebros.portfoliodashboardbackend.pricegetter.repository.ScripPricesRepository;
 import com.financebros.portfoliodashboardbackend.pricegetter.scrapper.PriceScrapper;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -57,5 +59,10 @@ public class PriceGetterService {
             updatePrice(scripResponse);
         }
         log.info("Updated prices for {} scrips", priceWatcherResponseArray.length);
+    }
+
+    public List<ScripPricesResponse> getPrices(ScripIdentifierRequest scripIdentifierRequest) {
+        return scripPricesRepository.findByScrip(scripIdentifierRequest.getScripName(), scripIdentifierRequest.getExchange(),
+                scripIdentifierRequest.getType()).stream().map(ScripPricesResponse::fromScripPricesDocument).toList();
     }
 }

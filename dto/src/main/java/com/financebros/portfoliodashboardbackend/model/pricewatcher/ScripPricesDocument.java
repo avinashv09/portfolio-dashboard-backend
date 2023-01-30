@@ -1,4 +1,4 @@
-package com.financebros.portfoliodashboardbackend.pricegetter.model;
+package com.financebros.portfoliodashboardbackend.model.pricewatcher;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,8 +1,8 @@
 package com.financebros.portfoliodashboardbackend.pricewatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financebros.portfoliodashboardbackend.dto.pricewatcher.ScripIdentifierRequest;
 import com.financebros.portfoliodashboardbackend.pricewatcher.repository.PriceWatcherRepository;
-import com.financebros.portfoliodashboardbackend.pricewatcher.dto.ScripIdentifierRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
