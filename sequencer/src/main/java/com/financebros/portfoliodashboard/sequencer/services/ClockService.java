@@ -1,17 +1,19 @@
 package com.financebros.portfoliodashboard.sequencer.services;
 
+import com.financebros.portfolio.message.*;
 import com.financebros.portfoliodashboard.sequencer.SequencerApplication;
-import com.financebros.portfolio.Acknowledge;
-import com.financebros.portfolio.ClockRequest;
-import com.financebros.portfolio.Request;
-import com.financebros.portfolio.Status;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.grpc.stub.StreamObserver;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor
 public class ClockService  {
-    public ClockService() {}
+    private final KafkaPublisher kafkaPublisher;
     public void handleRequest(Request request, StreamObserver<Acknowledge> responseObserver) throws InvalidProtocolBufferException {
-        if (ClockRequest.class.equals(request.getRequest().getClass())) {
+        if (request.getRequest().is(ClockRequest.class)) {
             publishClock(request.getRequest().unpack(ClockRequest.class), responseObserver);
         }
     }
@@ -19,7 +21,11 @@ public class ClockService  {
         Acknowledge acknowledge;
         try {
             SequencerApplication.engineTime = request.getEngineTime();
-            // TODO: Publish to Kafka
+            kafkaPublisher.publishMessage( "COMMON",
+                    OnCore.newBuilder()
+                    .setEngineTime(SequencerApplication.engineTime)
+                    .setSid(SenderId.CLOCK)
+                    .build().toByteArray());
             acknowledge = Acknowledge.newBuilder()
                     .setEngineTime(SequencerApplication.engineTime)
                     .setStatus(Status.OK)

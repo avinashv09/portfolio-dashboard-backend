@@ -1,6 +1,7 @@
 package com.financebros.portfolio.clock;
 
-import com.financebros.portfolio.SenderId;
+import com.financebros.portfolio.message.SenderId;
+import com.financebros.portfolio.message.SequencerServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,9 +18,16 @@ public class ClockApplication {
     public static ClockTask clockTask = new ClockTask();
     @PostConstruct
     public static void main(String[] args) {
-        ManagedChannel channel = ManagedChannelBuilder.forAddress(hostname, port)
-                .usePlaintext()
-                .build();
-        clockTask.run(channel);
+        while(true) {
+            ManagedChannel channel = ManagedChannelBuilder.forAddress(hostname, port)
+                    .usePlaintext()
+                    .build();
+            try {
+                clockTask.run(channel);
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
