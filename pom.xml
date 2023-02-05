@@ -9,18 +9,20 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.financebros</groupId>
-	<artifactId>portfoliodashboardbackend</artifactId>
+	<artifactId>portfolio</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>portfolio-dashboard-backend</name>
-	<description>Demo project for Spring Boot</description>
+	<name>portfolio</name>
+	<description>Microservice architecture based portfolio dashboard</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
 	<modules>
-		<module>price-watcher</module>
-		<module>price-getter</module>
-		<module>dto</module>
+		<module>message</module>
+		<module>sequencer</module>
+		<module>clock</module>
+		<module>nseextractor</module>
+		<module>ttextractor</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

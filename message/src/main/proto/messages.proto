@@ -1,0 +1,43 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.financebros.portfolio;
+import "google/protobuf/any.proto";
+
+enum SenderId {
+  CLOCK = 0;
+  NSEEXTRACTOR = 1;
+  TTEXTRACTOR = 2;
+  SEQUENCER = 3;
+}
+
+enum Status {
+  OK = 0;
+  ERROR = 1;
+}
+
+message Request {
+  int64 engineTime = 1;
+  SenderId sid = 2;
+  google.protobuf.Any request = 3;
+}
+
+message Acknowledge {
+  int64 engineTime = 1;
+  Status status = 2;
+  string errorMsg = 3;
+}
+
+// streamed to everybody via Kafka
+message OnCore {
+  int64 engineTime = 1;
+  SenderId sid = 2;
+  google.protobuf.Any message = 3;
+}
+
+message ClockRequest {
+  int64 engineTime = 1;
+}
+
+service SequencerService {
+  rpc request(Request) returns (Acknowledge);
+}
