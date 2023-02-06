@@ -19,7 +19,6 @@ public class ClockTask {
             log.info("Sleeping");
         }
     }
-
     public void task(ManagedChannel channel) throws InterruptedException {
         SequencerServiceGrpc.SequencerServiceBlockingStub stub
                 = SequencerServiceGrpc.newBlockingStub(channel);

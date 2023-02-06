@@ -1,13 +1,11 @@
 package com.financebros.portfolio.clock;
 
 import com.financebros.portfolio.message.SenderId;
-import com.financebros.portfolio.message.SequencerServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
-import java.util.Timer;
 
 @SpringBootApplication
 public class ClockApplication {

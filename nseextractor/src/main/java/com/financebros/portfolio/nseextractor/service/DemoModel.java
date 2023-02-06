@@ -1,4 +1,4 @@
-package com.financebros.portfoliodashboardbackend.pricegetter.service;
+package com.financebros.portfolio.nseextractor.service;
 
 public class DemoModel {
     private String body;

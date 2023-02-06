@@ -23,7 +23,7 @@
 		<module>message</module>
 		<module>sequencer</module>
 		<module>clock</module>
-<!--		<module>nseextractor</module>-->
+		<module>nseextractor</module>
 <!--		<module>ttextractor</module>-->
 	</modules>
 	<dependencyManagement>

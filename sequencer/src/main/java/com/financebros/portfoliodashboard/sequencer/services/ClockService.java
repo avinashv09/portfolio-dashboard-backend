@@ -4,14 +4,15 @@ import com.financebros.portfolio.message.*;
 import com.financebros.portfoliodashboard.sequencer.SequencerApplication;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.grpc.stub.StreamObserver;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.kafka.core.KafkaTemplate;
 
-@Component
-@RequiredArgsConstructor
 public class ClockService  {
-    private final KafkaPublisher kafkaPublisher;
+    private final KafkaTemplate<byte[], byte[]> kafkaTemplate;
+
+    ClockService(KafkaTemplate<byte[], byte[]> kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
     public void handleRequest(Request request, StreamObserver<Acknowledge> responseObserver) throws InvalidProtocolBufferException {
         if (request.getRequest().is(ClockRequest.class)) {
             publishClock(request.getRequest().unpack(ClockRequest.class), responseObserver);
@@ -21,7 +22,7 @@ public class ClockService  {
         Acknowledge acknowledge;
         try {
             SequencerApplication.engineTime = request.getEngineTime();
-            kafkaPublisher.publishMessage( "COMMON",
+            kafkaTemplate.send( "COMMON",
                     OnCore.newBuilder()
                     .setEngineTime(SequencerApplication.engineTime)
                     .setSid(SenderId.CLOCK)

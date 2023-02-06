@@ -4,13 +4,17 @@ import com.financebros.portfolio.message.*;
 import com.financebros.portfoliodashboard.sequencer.SequencerApplication;
 import com.financebros.portfolio.message.Acknowledge;
 import io.grpc.stub.StreamObserver;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
 
 @Slf4j
-@RequiredArgsConstructor
 public class SequencerServiceImp extends SequencerServiceGrpc.SequencerServiceImplBase {
     private final ClockService clockService;
+    public SequencerServiceImp(KafkaTemplate<byte[], byte[]> kafkaTemplate) {
+        this.clockService = new ClockService(kafkaTemplate);
+    }
     @Override
     public void request(Request request, StreamObserver<Acknowledge> responseObserver) {
         log.info("Request received!!");
